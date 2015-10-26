@@ -11,6 +11,7 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+var storage = {};
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -27,6 +28,19 @@ var requestHandler = function(request, response) {
   // Adding more logging to your server can be an easy way to get passive
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
+  var sendToEnd = {};
+  if (request.method === 'GET') {
+    // if (request.url === '/log') {
+    //   // do something
+    // } else if (request.url === '/classes/room') {
+    //   // do something else
+    // }
+  }
+
+  if (request.method === 'POST') {
+    // gather info from request itself, grab data that we want, push it up to storage
+  }
+
   console.log("Serving request type " + request.method + " for url " + request.url);
 
   // The outgoing status.
@@ -45,6 +59,12 @@ var requestHandler = function(request, response) {
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
 
+  // var body = '';
+  // response.on('data', function(chunk) {
+  //   body += chunk;
+  // });
+  // console.log(body);
+
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
@@ -52,9 +72,7 @@ var requestHandler = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end("Hello, World!");
-  if (request.method === 'GET') {
-  }
+  response.end(JSON.stringify(sendToEnd));
 };
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
