@@ -11,7 +11,7 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-var sendToEnd = {results: [{username: 'haley', message: 'hi'}]};
+var sendToEnd = {results: []};
 
 var requestHandler = function(request, response) {
 
@@ -19,8 +19,9 @@ var requestHandler = function(request, response) {
   var headers = defaultCorsHeaders;
   headers['Content-Type'] = "applicaton/json";
 
-  if (request.method === 'OPTIONS') {
-    // learn how to handle options
+  if (request.url !== '/classes/messages' && request.url !== '/classes/room1') {
+    response.writeHead(404, headers);
+    response.end();
   }
 
   if (request.method === 'GET' || request.method === 'OPTIONS') {
@@ -29,7 +30,7 @@ var requestHandler = function(request, response) {
     response.end(JSON.stringify(sendToEnd));
   }
 
-  if (request.method === 'POST') {
+  else if (request.method === 'POST') {
 
     var body = '';
     request.on('data', function(chunk) {
