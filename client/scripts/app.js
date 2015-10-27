@@ -67,12 +67,12 @@ var app = {
         // Get the last message
         var displayedRoom = $('.chat span').first().data('roomname');
         app.stopSpinner();
+        // Update the UI with the fetched rooms
+        app.populateRooms(data.results);
         if (data.results.length) {
           var mostRecentMessage = data.results[data.results.length-1];
           // Only bother updating the DOM if we have a new message
           if (mostRecentMessage.objectId !== app.lastMessageId || app.roomname !== displayedRoom) {
-            // Update the UI with the fetched rooms
-            app.populateRooms(data.results);
 
             // Update the UI with the fetched messages
             app.populateMessages(data.results, animate);
