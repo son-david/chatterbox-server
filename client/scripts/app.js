@@ -62,24 +62,24 @@ var app = {
       contentType: 'application/json',
       success: function(data) {
         // Don't bother if we have nothing to work with
-        if (!data.results || !data.results.length) { return; }
+        if (!data.results) { return; }
 
         // Get the last message
-        var mostRecentMessage = data.results[data.results.length-1];
         var displayedRoom = $('.chat span').first().data('roomname');
         app.stopSpinner();
-        // Only bother updating the DOM if we have a new message
-        console.log(mostRecentMessage.objectId, 'mostRecentMessage');
-        console.log(app.lastMessageId, 'lastMessageId');
-        if (mostRecentMessage.objectId !== app.lastMessageId || app.roomname !== displayedRoom) {
-          // Update the UI with the fetched rooms
-          app.populateRooms(data.results);
+        if (data.results.length) {
+          var mostRecentMessage = data.results[data.results.length-1];
+          // Only bother updating the DOM if we have a new message
+          if (mostRecentMessage.objectId !== app.lastMessageId || app.roomname !== displayedRoom) {
+            // Update the UI with the fetched rooms
+            app.populateRooms(data.results);
 
-          // Update the UI with the fetched messages
-          app.populateMessages(data.results, animate);
+            // Update the UI with the fetched messages
+            app.populateMessages(data.results, animate);
 
-          // Store the ID of the most recent message
-          app.lastMessageId = mostRecentMessage.objectId;
+            // Store the ID of the most recent message
+            app.lastMessageId = mostRecentMessage.objectId;
+          }
         }
       },
       error: function(data) {
