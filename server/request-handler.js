@@ -11,11 +11,10 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-var storage = [];
+var sendToEnd = {results: []};
 
 var requestHandler = function(request, response) {
 
-  var sendToEnd = {results: []};
 
   var headers = defaultCorsHeaders;
   headers['Content-Type'] = "text/plain";
@@ -35,9 +34,9 @@ var requestHandler = function(request, response) {
     });
     request.on('end', function() {
       var newMessage = JSON.parse(body);
-      storage.push(newMessage);
+      sendToEnd.results.push(newMessage);
       response.writeHead(201, headers);
-      response.end(JSON.stringify(storage));
+      response.end(JSON.stringify(sendToEnd));
     });
   }
 
