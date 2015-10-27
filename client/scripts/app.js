@@ -99,7 +99,11 @@ var app = {
     app.stopSpinner();
     if (Array.isArray(results)) {
       // Add all fetched messages
-      results.forEach(app.addMessage);
+      results.forEach(function(element) {
+        if (element.username !== undefined && element.text !== undefined) {
+          app.addMessage(element)
+        }
+      });
     }
 
     // Make it scroll to the bottom
