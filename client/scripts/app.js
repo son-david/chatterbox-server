@@ -6,7 +6,7 @@ var app = {
   //to all messages sent by the user
   server: 'http://127.0.0.1:3000/classes/messages/',
   username: 'anonymous',
-  roomname: 'lobby',
+  roomname: 'Lobby',
   lastMessageId: 0,
   friends: {},
 
@@ -99,9 +99,10 @@ var app = {
     app.stopSpinner();
     if (Array.isArray(results)) {
       // Add all fetched messages
+      // results = results.reverse();
       results.forEach(function(element) {
         if (element.username !== undefined && element.text !== undefined) {
-          app.addMessage(element)
+          app.addMessage(element);
         }
       });
     }
@@ -119,7 +120,7 @@ var app = {
   },
 
   populateRooms: function(results) {
-    app.$roomSelect.html('<option value="__newRoom">New room...</option><option value="" selected>Lobby</option></select>');
+    app.$roomSelect.html('<option value="__newRoom">New room...</option></select>');
 
     if (results) {
       var rooms = {};
@@ -148,7 +149,7 @@ var app = {
 
   addMessage: function(data) {
     if (!data.roomname)
-      data.roomname = 'lobby';
+      data.roomname = 'Lobby';
 
     // Only add messages that are in our current room
     if (data.roomname === app.roomname) {
@@ -223,7 +224,7 @@ var app = {
     var message = {
       username: app.username,
       text: app.$message.val(),
-      roomname: app.roomname || 'lobby'
+      roomname: app.roomname || 'Lobby'
     };
 
     app.send(message);
