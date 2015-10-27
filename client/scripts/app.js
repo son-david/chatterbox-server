@@ -138,7 +138,6 @@ var app = {
   addRoom: function(roomname) {
     // Prevent XSS by escaping with DOM methods
     var $option = $('<option/>').val(roomname).text(roomname);
-
     // Add to select
     app.$roomSelect.append($option);
   },
@@ -198,6 +197,9 @@ var app = {
 
         // Select the menu option
         app.$roomSelect.val(roomname);
+
+        // Update room as it's added
+        app.send({roomname: roomname});
 
         // Fetch messages again
         app.fetch();
