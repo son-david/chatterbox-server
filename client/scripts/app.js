@@ -99,23 +99,12 @@ var app = {
     app.stopSpinner();
     if (Array.isArray(results)) {
       // Add all fetched messages
-      // results = results.reverse();
+      results = results.reverse();
       results.forEach(function(element) {
         if (element.username !== undefined && element.text !== undefined) {
           app.addMessage(element);
         }
       });
-    }
-
-    // Make it scroll to the bottom
-    var scrollTop = app.$chats.prop('scrollHeight');
-    if (animate) {
-      app.$chats.animate({
-        scrollTop: scrollTop
-      });
-    }
-    else {
-      app.$chats.scrollTop(scrollTop);
     }
   },
 
