@@ -1,5 +1,7 @@
 var express = require('express');
 var http = require('http');
+var fs = require('fs');
+
 var app = express();
 
 var headers = {
@@ -11,6 +13,12 @@ var headers = {
 };
 
 var sendToEnd = {results: []};
+
+app.use('/', express.static(__dirname + '/../client'));
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/../client/index.html');
+});
 
 app.options('/classes/messages/', function(req, res) {
   res.writeHead(200, headers);
