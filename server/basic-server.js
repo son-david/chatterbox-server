@@ -1,5 +1,3 @@
-// var http = require("http");
-// var handleRequest = require('./request-handler');
 var express = require('express');
 var http = require('http');
 var app = express();
